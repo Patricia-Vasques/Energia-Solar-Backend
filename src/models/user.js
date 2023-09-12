@@ -4,7 +4,7 @@ const { connection } = require('../database/connection')
 const User = connection.define("user", {
     id: {
         type: INTEGER,
-        primarykey: true,
+        primaryKey: true,
         allowNull: false,
         autoIncrement: true,
         },
@@ -21,7 +21,6 @@ const User = connection.define("user", {
             isEmail: true,
         },
     },
-        unic: true, 
 
     password:{
         type: STRING,
@@ -29,11 +28,8 @@ const User = connection.define("user", {
         validate: {
             len: {args: [8, 15], msg: "Senha precisa ter entre 8 a 15 char."},
             strongPassword(value) {
-                const strongPasswordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]+$/;;
-                if (!strongPasswordRegex.test(value)) {
-                    throw new Error(
-                    'Senha deve conter pelo menos 1 letra maiúscula, 1 número e 1 caracteres.'
-                    );
+                if (!/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)) {
+                    throw new Error('Senha deve conter pelo menos 1 letra maiúscula e 1 número.');
                 }
             }
         },
