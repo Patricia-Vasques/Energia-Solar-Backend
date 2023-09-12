@@ -1,4 +1,4 @@
-const { INTEGER, STRING, DATE, ENUM } = require ('sequelize')
+const { INTEGER, STRING, DATE } = require ('sequelize')
 const { connection } = require('../database/connection')
 
 const User = connection.define("user", {
@@ -37,7 +37,17 @@ const User = connection.define("user", {
                 }
             }
         },
-    }
+    },
+
+    createdAt: {
+        type: DATE,
+        allowNull: false,
+      },
+
+      updatedAt: {
+        type: DATE,
+        allowNull: false,
+      },
 },
 
 {  underscored: true, paranoide: true })
