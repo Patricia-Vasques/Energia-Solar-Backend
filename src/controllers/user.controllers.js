@@ -3,8 +3,40 @@ const { sign } = require('jsonwebtoken')
 
 class UserController {
 
+    //Criando novo usuário
+    async createOneUser(req,res){
+
+        const{
+            name,
+            email,
+            password
+        } = req.body;
+
+        if(!name || !email || !password) {
+            return res.status(400).json({error: "Preencha os campos obrigatórios!"})
+        }
+
+        const emailExistente = await User.findOne({ where: {email}})
+        if(emailExistente) {
+            return res.status(403).json({error: "E-mail já cadastrado ou formato de e-mail inválido"})
+        }
+
+        const newUser = await User.create({
+            name,
+            email,
+            password
+        })
+
+        return res.status(201).json({
+            id: newUser.id,
+            name: newUser.name,
+            email: newUser.email,
+            password: newUser.password
+        })
+    }
+
     //Login 
-    async loginUer(req, res){
+    async loginUser(req, res){
         try{
             const {email, password} =  req.body;
 
