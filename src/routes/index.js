@@ -1,9 +1,9 @@
 const { Router } = require('express')
-const { routesFronUser} = require('./user.routes')
+const { routesFromUser } = require('./user.routes')
 
 const routes = new Router()
 routes.use('/api', [
-    userRoutes.post('/usuarios/login',loginUser),
+    routesFromUser()
 ])
 
 module.exports = routes
