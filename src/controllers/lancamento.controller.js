@@ -1,7 +1,8 @@
-const { Launch } = require('../models/lancamento');
+const { Record } = require('../models/lancamento');
+const { Unidade } = require('../models/unidade');
 
-class LaunchController {
-  async registerLaunch(req, res) {
+class RecordController {
+  async createRecord(req, res) {
     try {
       const { idUnit, date, total } = req.body;
 
@@ -11,6 +12,13 @@ class LaunchController {
           .json({ error: 'Todos os campos devem ser preenchidos.' });
       }
 
+      const unitExisting = await Unidade.findOne({ where: { id: idUnit } });
+      if (!unitExisting) {
+        return res.status(400).json({
+          message: `A unidade de Id ${idUnit} não existe.`,
+        });
+      }
+
       const datePattern = /^(0[1-9]|1[0-2])-\d{4}$/;
       if (!datePattern.test(date)) {
         return res
@@ -18,7 +26,7 @@ class LaunchController {
           .json({ error: 'Formato de data inválido. Use MM-YYYY.' });
       }
 
-      const newLaunch = await Launch.create({
+      const newRecord = await Record.create({
         idUnit,
         date,
         total,
@@ -26,7 +34,7 @@ class LaunchController {
 
       return res.status(201).json({
         message: 'Lançamento cadastrado com sucesso!',
-        newLaunch,
+        newRecord,
       });
     } catch (error) {
       return res.status(500).send({
@@ -37,4 +45,4 @@ class LaunchController {
   }
 }
 
-module.exports = new LaunchController();
+module.exports = new RecordController();

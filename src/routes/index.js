@@ -1,9 +1,9 @@
 const { Router } = require('express');
-const { routesFromLaunch } = require('./lancamento.routes');
+const { routesFromRecord } = require('./lancamento.routes');
 const { routesFromUser } = require('./user.routes')
 
 const routes = Router()
 
-routes.use('/api', [routesFromUser(), routesFromLaunch()]);
+routes.use('/api', [routesFromUser(), routesFromRecord()]);
 
 module.exports = routes;
