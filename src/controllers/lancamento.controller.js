@@ -57,6 +57,22 @@ class RecordController {
         })
       }
   }
+
+  async deleteRecord (req, res){
+    const  {id } = req.params
+    const record = await Record.findOne({
+      where: { id }
+    })
+    if(!record){
+      return res.status(400).json({error: "id inválido!"})
+    }
+    await record.destroy({
+      where: { id }
+    })
+    return res.status(204).json({
+      messagem: "Deletado com sucesso!"
+    })
+  }
 }
   
 
