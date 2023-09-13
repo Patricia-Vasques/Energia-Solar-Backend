@@ -1,5 +1,5 @@
 const { connection } = require("../database/connection");
-const { INTEGER, STRING, BOOLEAN } = require("sequelize");
+const { INTEGER, STRING, BOOLEAN, DATE } = require("sequelize");
 
 const Unidade = connection.define(
   "unidade",
