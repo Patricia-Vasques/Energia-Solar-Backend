@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Launch', {
+    await queryInterface.createTable('launches', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -21,7 +21,7 @@ module.exports = {
         allowNull: false,
       },
       date: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       total: {
@@ -44,6 +44,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Launch');
+    await queryInterface.dropTable('launches');
   },
 };

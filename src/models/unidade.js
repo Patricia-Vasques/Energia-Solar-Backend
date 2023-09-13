@@ -1,8 +1,9 @@
+
 const { connection } = require("../database/connection");
 const { INTEGER, STRING, BOOLEAN, DATE } = require("sequelize");
 
 const Unidade = connection.define(
-  "unidade",
+  'unidades',
   {
     id: {
       type: INTEGER,
