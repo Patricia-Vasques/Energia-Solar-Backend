@@ -1,5 +1,8 @@
-const { Router } = require('express')
+const { Router } = require('express');
+const { routesFromLaunch } = require('./lancamento.routes');
 
-const routes = new Router()
+const routes = Router();
 
-module.exports = routes
+routes.use('/api', [routesFromLaunch()]);
+
+module.exports = routes;
