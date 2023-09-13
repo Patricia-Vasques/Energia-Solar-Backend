@@ -1,14 +1,14 @@
-const { registerLaunch } = require('../controllers/lancamento.controller');
+const { registerRecord } = require('../controllers/lancamento.controller');
 const { Router } = require('express');
 
-class LaunchRouter {
-  routesFromLaunch() {
-    const launchRoutes = Router();
+class RecordRouter {
+  routesFromRecord() {
+    const recordRoutes = Router();
 
-    launchRoutes.post('/v1/geracao', registerLaunch);
+    recordRoutes.post('/v1/geracao', registerRecord);
 
-    return launchRoutes;
+    return recordRoutes;
   }
 }
 
-module.exports = new LaunchRouter();
+module.exports = new RecordRouter();

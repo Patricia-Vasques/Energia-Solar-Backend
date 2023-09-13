@@ -1,8 +1,8 @@
 const { INTEGER, DATE, FLOAT, STRING } = require('sequelize');
 const { connection } = require('../database/connection');
 
-const Launch = connection.define(
-  'launches',
+const Record = connection.define(
+  'records',
   {
     idUnit: {
       type: INTEGER,
@@ -21,4 +21,4 @@ const Launch = connection.define(
   { underscored: true, paranoid: true }
 );
 
-module.exports = { Launch };
+module.exports = { Record };

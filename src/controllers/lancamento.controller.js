@@ -1,7 +1,7 @@
-const { Launch } = require('../models/lancamento');
+const { Record } = require('../models/lancamento');
 
-class LaunchController {
-  async registerLaunch(req, res) {
+class RecordController {
+  async registerRecord(req, res) {
     try {
       const { idUnit, date, total } = req.body;
 
@@ -18,7 +18,7 @@ class LaunchController {
           .json({ error: 'Formato de data inválido. Use MM-YYYY.' });
       }
 
-      const newLaunch = await Launch.create({
+      const newRecord = await Record.create({
         idUnit,
         date,
         total,
@@ -26,7 +26,7 @@ class LaunchController {
 
       return res.status(201).json({
         message: 'Lançamento cadastrado com sucesso!',
-        newLaunch,
+        newRecord,
       });
     } catch (error) {
       return res.status(500).send({
@@ -37,4 +37,4 @@ class LaunchController {
   }
 }
 
-module.exports = new LaunchController();
+module.exports = new RecordController();
