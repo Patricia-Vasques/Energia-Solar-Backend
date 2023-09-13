@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { loginUser, createOneUser, listUser } = require('../controllers/user.controllers');
+const { loginUser, createOneUser, listUser, updateUser } = require('../controllers/user.controllers');
 
 class UserRouter {
   routesFromUser() {
@@ -7,7 +7,8 @@ class UserRouter {
 
     userRoutes.post('/v1/login', loginUser);
     userRoutes.post('/v1/usuario', createOneUser);
-    userRoutes.get('/v1/usuario', listUser)
+    userRoutes.get('/v1/usuario', listUser);
+    userRoutes.put('/v1/usuario/:id', updateUser)
 
     return userRoutes;
   }
