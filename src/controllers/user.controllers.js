@@ -97,6 +97,19 @@ class UserController {
                         return res.status(500).json({error: "Não foi possível atualizar dados"})
                     }
         }
-    }
 
+        //Deletar usuário
+        async deleteUser (req, res){
+            const { id } = req.params;
+            const user = await User.findOne({
+                where: { id }
+            });
+                if(!user) {
+                    return res.status(400).json({error: "Id inválido!"})
+                }
+                await user.destroy ({ where: {id}})
+                return res.status(204).json()
+            }
+        }
+    
 module.exports = new UserController ()
