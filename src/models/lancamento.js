@@ -1,10 +1,10 @@
-const { INTEGER, DATE, FLOAT } = require('sequelize');
+const { INTEGER, DATE, FLOAT, STRING } = require('sequelize');
 const { connection } = require('../database/connection');
 
-const Launch = connection.define(
-  'Launch',
+const Record = connection.define(
+  'records',
   {
-    id_unit: {
+    idUnit: {
       type: INTEGER,
       references: {
         model: {
@@ -13,7 +13,7 @@ const Launch = connection.define(
         key: 'id',
       },
     },
-    date: DATE,
+    date: STRING,
     total: FLOAT,
     createdAt: DATE,
     updatedAt: DATE,
@@ -21,4 +21,4 @@ const Launch = connection.define(
   { underscored: true, paranoid: true }
 );
 
-module.exports = { Launch };
+module.exports = { Record };
