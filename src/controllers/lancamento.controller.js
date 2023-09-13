@@ -53,6 +53,45 @@ class RecordController {
       });
     }
   }
+
+  async updateRecord(req, res) {
+    try {
+      const { id } = req.params;
+      const { date, total } = req.body;
+
+      if (!date || !total) {
+        return res.status(400).json({
+          message: 'Todos os campos devem ser preenchidos.',
+        });
+      }
+
+      if (!id || isNaN(id) || parseInt(id) <= 0) {
+        return res.status(400).json({ error: 'ID inválido.' });
+      }
+
+      const recordExisting = await Record.findByPk(id);
+      if (!recordExisting) {
+        return res.status(404).json({
+          message: 'Registro não encontrado.',
+        });
+      }
+
+      recordExisting.date = date;
+      recordExisting.total = total;
+
+      await recordExisting.save();
+
+      return res.status(200).json({
+        message: 'Registro atualizado com sucesso!',
+        recordExisting,
+      });
+    } catch (error) {
+      return res.status(500).send({
+        message: 'Erro no servidor.',
+        cause: error.message,
+      });
+    }
+  }
 }
 
 module.exports = new RecordController();
