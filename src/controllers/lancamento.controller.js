@@ -36,6 +36,7 @@ class RecordController {
     }
   }
 
+
   async listRecordId (req, res) {
     try {
       const { id } = req.params
@@ -56,6 +57,24 @@ class RecordController {
           cause: error.message
         })
       }
+
+  async getAllRecords(req, res) {
+    try {
+      const records = await Record.findAll();
+      if (records.length === 0) {
+        return res.status(404).json({
+          message: 'Não há lançamentos cadastrados até o momento.',
+        });
+      }
+
+      return res.status(200).json(records);
+    } catch (error) {
+      return res.status(500).send({
+        message: 'Erro no servidor.',
+        cause: error.message,
+      });
+    }
+
   }
 }
   
