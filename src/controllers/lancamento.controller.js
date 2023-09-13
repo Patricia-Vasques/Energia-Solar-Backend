@@ -36,6 +36,7 @@ class RecordController {
     }
   }
 
+
   async listRecordId (req, res) {
     try {
       const { id } = req.params
@@ -56,24 +57,49 @@ class RecordController {
           cause: error.message
         })
       }
+    }
+
+  async getAllRecords(req, res) {
+    try {
+      const records = await Record.findAll();
+      if (records.length === 0) {
+        return res.status(404).json({
+          message: 'Não há lançamentos cadastrados até o momento.',
+        });
+      }
+
+      return res.status(200).json(records);
+    } catch (error) {
+      return res.status(500).send({
+        message: 'Erro no servidor.',
+        cause: error.message,
+      });
+    }
+
   }
 
-  async deleteRecord (req, res){
-    const  {id } = req.params
-    const record = await Record.findOne({
-      where: { id }
-    })
-    if(!record){
-      return res.status(400).json({error: "id inválido!"})
+    async deleteRecord (req, res){
+      try{
+        const  {id } = req.params
+        const record = await Record.findOne({
+          where: { id }
+      })
+      if(!record){
+        return res.status(400).json({error: "id inválido!"})
+      }
+      await record.destroy({
+        where: { id }
+      })
+      return res.status(204).json({
+        messagem: "Deletado com sucesso!"
+      })
+    }catch (error) {
+      return res.status(500).send({
+        message: 'Erro no servidor.',
+        cause: error.message,
+      });
     }
-    await record.destroy({
-      where: { id }
-    })
-    return res.status(204).json({
-      messagem: "Deletado com sucesso!"
-    })
-  }
+    }
 }
-  
 
 module.exports = new RecordController();
