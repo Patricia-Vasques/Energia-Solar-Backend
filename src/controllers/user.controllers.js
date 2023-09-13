@@ -67,10 +67,36 @@ class UserController {
            const users = await User.findAll(user)
 
            return res.status(200).json(users)
-    } catch (error) {
+        } catch (error) {
         return res.status(400).json ({error: "Erro ao encontrar usuário!"})
+        }
     }
-}
-}
+
+    //Atualizar usuário no sistema
+    async updateUser (req,res) {
+        
+            const { id } = req.params;
+            const { name,
+                    email, 
+                    password} = req.body
+
+                    try {
+                        const user = await User.findByPk (id);
+                        if(!user){
+                            return res.status(400).json({error: "Id não encontrado ou algum dado está incorreto"})
+                        }
+
+                        user.name = name || user.name;
+                        user.email = email || user.email;
+                        user.password = password || user.password;
+
+                        await user.save();
+                        return res.status(200).json(user)
+                    } catch (error){
+                        console.error(error)
+                        return res.status(500).json({error: "Não foi possível atualizar dados"})
+                    }
+        }
+    }
 
 module.exports = new UserController ()
