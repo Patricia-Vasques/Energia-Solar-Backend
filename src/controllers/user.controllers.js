@@ -5,7 +5,7 @@ class UserController {
 
     //Criando novo usuário
     async createOneUser(req,res){
-
+        try{
         const{
             name,
             email,
@@ -33,6 +33,9 @@ class UserController {
             email: newUser.email,
             password: newUser.password
         })
+      } catch (error){
+        return res.status(500).json({error: "Não foi possivel fazer o login!"})
+}
     }
 
     //Login 
@@ -56,7 +59,7 @@ class UserController {
             }
 
         } catch (error){
-            return res.status(400).json({error: "Não foi possivel fazer o login!"})
+            return res.status(500).json({error: "Não foi possivel fazer o login!"})
     }
         }
 
@@ -68,7 +71,7 @@ class UserController {
 
            return res.status(200).json(users)
         } catch (error) {
-        return res.status(400).json ({error: "Erro ao encontrar usuário!"})
+        return res.status(500).json ({error: "Erro ao encontrar usuário!"})
         }
     }
 
@@ -100,16 +103,20 @@ class UserController {
 
         //Deletar usuário
         async deleteUser (req, res){
-            const { id } = req.params;
-            const user = await User.findOne({
-                where: { id }
-            });
-                if(!user) {
-                    return res.status(400).json({error: "Id inválido!"})
-                }
-                await user.destroy ({ where: {id}})
-                return res.status(204).json()
+            try{
+                const { id } = req.params;
+                const user = await User.findOne({
+                    where: { id }
+                });
+                    if(!user) {
+                        return res.status(400).json({error: "Id inválido!"})
+                    }
+                    await user.destroy ({ where: {id}})
+                    return res.status(204).json()
+            } catch (error){
+                return res.status(500).json({error: "Não foi possivel fazer o login!"})
             }
         }
+}
     
 module.exports = new UserController ()

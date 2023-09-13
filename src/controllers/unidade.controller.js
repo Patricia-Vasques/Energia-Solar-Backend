@@ -89,7 +89,7 @@ class UnidadeController {
             }
       
             //await unidade.update({ active: 'false' });
-            await unidade.destroy();
+            await unidade.destroy({where: {id}});
             
             return response.status(204).send({ message: "Unidade excluida" });
         } catch (error) {
