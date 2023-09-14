@@ -34,7 +34,7 @@ class UserController {
             password: newUser.password
         })
       } catch (error){
-        return res.status(500).json({error: "Não foi possivel fazer o login!"})
+        return res.status(500).json({error: "Não foi possivel fazer o cadastro!"})
 }
     }
 
