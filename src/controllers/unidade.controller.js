@@ -9,7 +9,7 @@ class UnidadeController {
                 return response.status(400).send({ message: "É obrigatório Preencher todos os campos"})
             }
             
-            const data = await Unidade.create({nickName, address, brand, model, active})
+            const data = await Unidade.create({nickname, address, brand, model, active})
             
             return response.status(201).send(data)
         } catch (error) {
