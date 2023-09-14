@@ -113,7 +113,7 @@ class RecordController {
       const { id } = req.params;
       const { date, total } = req.body;
 
-      if (!date || !total) {
+      if (!date && !total) {
         return res.status(400).json({
           message: 'Todos os campos devem ser preenchidos.',
         });
