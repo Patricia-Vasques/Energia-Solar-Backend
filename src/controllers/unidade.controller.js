@@ -45,7 +45,7 @@ class UnidadeController {
             const { id } = request.params
             const { nickname, address, brand, model, active } = request.body
 
-            if(!nickname || !address || !brand || !model || !active) {
+            if(!nickname && !address && !brand && !model && !active) {
                 return response.status(400).send({ message: "É obrigatório Preencher todos os campos"})
             }
 	        
@@ -54,18 +54,18 @@ class UnidadeController {
             }
             
             const unidade = await Unidade.findByPk(id);
-            if (!deposito) {
-                return response.status(404).send({ message: "Depósito não encontrado" });
+            if (!unidade) {
+                return response.status(404).send({ message: "Unidade não encontrada" });
             }
 	                    
             const dataForUpdate = Object.assign({}, nickname && {nickname}, address && {address }, brand && {brand}, model && {model}, active && {active})
              
             await Unidade.update(dataForUpdate, { where: { id }})
             
-            return response.status(200).send({message: "Depósito alterado com sucesso"})
+            return response.status(200).send({message: "Unidade alterada com sucesso"})
 	    } catch (error) {
 	     	return response.status(400).send({
-                message: "Erro ao atualizar depósito",
+                message: "Erro ao atualizar unidade",
                 cause: error.message
             })
         }
@@ -94,7 +94,7 @@ class UnidadeController {
             return response.status(204).send({ message: "Unidade excluida" });
         } catch (error) {
             return response.status(404).json({
-                message: "Falha ao excluir o depósito",
+                message: "Falha ao excluir o unidade",
                 cause: error.message,
             });
         }
