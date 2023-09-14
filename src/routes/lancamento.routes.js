@@ -12,7 +12,7 @@ class RecordRouter {
   routesFromRecord() {
     const recordRoutes = Router();
 
-    recordRoutes.post('/v1/geracao', auth, createRecord);
+    recordRoutes.post('/v1/geracao', createRecord);
     recordRoutes.get('/v1/geracao/:unidadeId', auth, listRecordId);
     recordRoutes.delete('/v1/geracao/:id', auth, deleteRecord);
     recordRoutes.get('/v1/geracao', auth, getAllRecords);
