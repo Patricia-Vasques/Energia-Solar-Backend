@@ -46,9 +46,9 @@ class RecordController {
 
   async listRecordId(req, res) {
     try {
-      const { id } = req.params;
+      const { id: idUnit  } = req.params;
       const record = await Record.findOne({
-        where: { id },
+        where: { id: idUnit  },
       });
 
       if (!record) {
