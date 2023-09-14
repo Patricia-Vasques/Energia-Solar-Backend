@@ -3,13 +3,13 @@ const {Unidade} = require("../models/unidade")
 class UnidadeController {
     async createOneUnidade(request, response){
         try {
-            const {nickName, address, brand, model, active} = request.body
+            const {nickname, address, brand, model, active} = request.body
             
-            if(!nickName || !address || !brand || !model || !active) {
+            if(!nickname || !address || !brand || !model || !active) {
                 return response.status(400).send({ message: "É obrigatório Preencher todos os campos"})
             }
             
-            const data = await Unidade.create({nickName, address, brand, model, active})
+            const data = await Unidade.create({nickname, address, brand, model, active})
             
             return response.status(201).send(data)
         } catch (error) {
@@ -43,9 +43,9 @@ class UnidadeController {
     async atualizarOneUnidade(request, response){
         try {
             const { id } = request.params
-            const { nickName, address, brand, model, active } = request.body
+            const { nickname, address, brand, model, active } = request.body
 
-            if(!nickName || !address || !brand || !model || !active) {
+            if(!nickname || !address || !brand || !model || !active) {
                 return response.status(400).send({ message: "É obrigatório Preencher todos os campos"})
             }
 	        
@@ -58,7 +58,7 @@ class UnidadeController {
                 return response.status(404).send({ message: "Depósito não encontrado" });
             }
 	                    
-            const dataForUpdate = Object.assign({}, nickName && {nickName}, address && {address }, brand && {brand}, model && {model}, active && {active})
+            const dataForUpdate = Object.assign({}, nickname && {nickname}, address && {address }, brand && {brand}, model && {model}, active && {active})
              
             await Unidade.update(dataForUpdate, { where: { id }})
             
