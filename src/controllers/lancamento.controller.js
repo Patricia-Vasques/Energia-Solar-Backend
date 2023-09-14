@@ -46,9 +46,9 @@ class RecordController {
 
   async listRecordId(req, res) {
     try {
-      const { id: idUnit  } = req.params;
+      const { unidadeId  } = req.params;
       const record = await Record.findOne({
-        where: { id: idUnit  },
+        where: { idUnit: unidadeId },
       });
 
       if (!record) {
@@ -57,7 +57,8 @@ class RecordController {
         });
       }
       return res.status(200).json({
-        messagem: 'Id encontrado com sucesso!',
+        message: 'Id encontrado com sucesso!',
+        record
       });
     } catch (error) {
       return res.status(500).send({
