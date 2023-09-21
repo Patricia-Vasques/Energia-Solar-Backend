@@ -1,4 +1,6 @@
 const express = require('express')
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('../swaggerConfig');
 const cors = require('cors')
 const { connection } = require ('./database/connection')
 const routes = require('./routes')
@@ -28,12 +30,17 @@ class Server {
     }
 
     async initializeServer(app) {
+       
         const PORT = 3000
         app.listen(PORT, () => console.log(`Servidor executanto na porta ${PORT}`))
     }
 
     async allRoutes(app) {
         app.use(routes)
+
+    // Serve the Swagger UI interface at /api-docs
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
     }
 }
 
